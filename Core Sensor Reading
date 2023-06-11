@@ -1,8 +1,14 @@
 const int sensorPin = A0;  // Analog input pin for RTD sensor
 const int sensorNPK = A0;  // Analog input pin for NPK sensor
+const int fanPin = 0       // Analog input pin for Fan
 
 void setup() {
   Serial.begin(9600);  // Initialize serial communication
+}
+
+void setup() {
+  pinMode(fanPin, OUTPUT);  // Set fan pin as output
+  Serial.begin(9600);       // Initialize serial communication
 }
 
 void loop() {
@@ -14,9 +20,14 @@ void loop() {
   // Use correct formula to convert voltage to temperature
   float temperature = (voltage - 1.0) * 100.0;
 
-  Serial.print("Temperature: ");
-  Serial.print(temperature);
-  Serial.println(" °C");
+  if (temperature < 20) {
+    // Fan should be off
+    digitalWrite(fanPin, LOW);
+    }
+    else if (temperature > 32) {
+    // Fan should be on
+    digitalWrite(fanPin, HIGH);
+  }
 
   delay(1000);  // Wait for a second before taking the next reading
 }
