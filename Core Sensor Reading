@@ -1,4 +1,5 @@
 const int sensorPin = A0;  // Analog input pin for RTD sensor
+const int sensorNPK = A0;  // Analog input pin for NPK sensor
 
 void setup() {
   Serial.begin(9600);  // Initialize serial communication
@@ -16,6 +17,18 @@ void loop() {
   Serial.print("Temperature: ");
   Serial.print(temperature);
   Serial.println(" °C");
+
+  delay(1000);  // Wait for a second before taking the next reading
+}
+
+void loop() {
+  int sensorValue = analogRead(sensorPin);  // Read analog value from sensor
+
+  // Convert analog value to NPK value using appropriate scaling or calibration factors
+  float npkValue = map(sensorValue, 0, 1023, 0, 100);  // Example: mapping to a 0-100 scale
+
+  Serial.print("NPK Value: ");
+  Serial.println(npkValue);
 
   delay(1000);  // Wait for a second before taking the next reading
 }
