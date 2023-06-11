@@ -1,0 +1,21 @@
+const int sensorPin = A0;  // Analog input pin for RTD sensor
+
+void setup() {
+  Serial.begin(9600);  // Initialize serial communication
+}
+
+void loop() {
+  int sensorValue = analogRead(sensorPin);  // Read analog value from sensor
+
+  // Convert analog value to voltage using the correct formula
+  float voltage = sensorValue * (5.0 / 1023.0);
+
+  // Use correct formula to convert voltage to temperature
+  float temperature = (voltage - 1.0) * 100.0;
+
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+
+  delay(1000);  // Wait for a second before taking the next reading
+}
